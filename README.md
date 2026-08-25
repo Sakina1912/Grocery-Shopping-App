@@ -1,3 +1,6 @@
+A simple and responsive grocery list application built with React, allowing users to add, organize, and manage grocery items with persistent data stored in LocalStorage.
+
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
