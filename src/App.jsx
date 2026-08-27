@@ -3,7 +3,7 @@ import "./App.css";
 import { HiShoppingCart } from "react-icons/hi2";
 import GroceryForm from "./Components/GroceryForm";
 import { itemList } from "./Data/itemList";
-import ItemsTiles from "./Components/itemsTiles";
+import ItemsTiles from "./Components/ItemsTiles";
 import { FilterForm } from "./Components/FilterForm";
 
 function App() {
