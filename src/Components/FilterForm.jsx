@@ -5,7 +5,8 @@ export const FilterForm = ({
   handleFilter,
   sortBy,
   setSortBy,
-  setClearCompleted,
+  // setClearCompleted,
+  handleClearCompleted,
 }) => {
   //   const [sortBy, setSortBy] = useState("Recent");
   return (
@@ -13,18 +14,21 @@ export const FilterForm = ({
       <form className="flex flex-wrap items-center justify-between gap-3 rounded-[1.25rem] border border-slate-200 bg-white p-4 shadow-sm transition hover:shadow-md">
         <div className="flex flex-wrap gap-2">
           <button
+            type="button"
             className="rounded-full bg-emerald-50 px-3 py-2 font-medium text-emerald-700"
             onClick={() => handleFilter("All")}
           >
             All
           </button>
           <button
+            type="button"
             className="rounded-full bg-emerald-50 px-3 py-2 font-medium text-emerald-700"
             onClick={() => handleFilter("Active")}
           >
             Active
           </button>
           <button
+            type="button"
             className="rounded-full bg-emerald-50 px-3 py-2 font-medium text-emerald-700"
             onClick={() => handleFilter("Completed")}
           >
@@ -42,8 +46,9 @@ export const FilterForm = ({
             <option value="Name">Name</option>
           </select>
           <button
+            type="button"
             className="rounded-full bg-rose-50 px-3 py-2 font-medium text-rose-700"
-            onClick={() => setClearCompleted(true)}
+            onClick={handleClearCompleted}
           >
             Clear Completed
           </button>

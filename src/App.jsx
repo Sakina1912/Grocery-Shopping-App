@@ -3,11 +3,12 @@ import "./App.css";
 import { HiShoppingCart } from "react-icons/hi2";
 import GroceryForm from "./Components/GroceryForm";
 import { itemList } from "./Data/itemList";
-import ItemsTiles from "./Components/ItemsTiles";
+import ItemsTiles from "./Components/itemsTiles";
 import { FilterForm } from "./Components/FilterForm";
 
 function App() {
   // const [item, setCount] = useState(0);
+
   const [groceryList, setgroceryList] = useState(() => {
     const savedList = localStorage.getItem("GroceryList");
     if (savedList) {
@@ -22,6 +23,10 @@ function App() {
     }
     return itemList;
   });
+
+  const [filter, setFilter] = useState("All");
+  const [sortBy, setSortBy] = useState("Recent");
+  // const [clearCompleted, setClearCompleted] = useState(false);
 
   const addItem = (newItem) => {
     setgroceryList((prevData) => [newItem, ...prevData]);
@@ -45,29 +50,48 @@ function App() {
 
   const remainingItems = groceryList.filter((item) => !item.completed).length;
 
-  const handleFilter = (filter) => {
-    if (filter === "Active") {
-      setgroceryList((prevData) => prevData.filter((item) => !item.completed));
-    } else if (filter === "Completed") {
-      setgroceryList((prevData) => prevData.filter((item) => item.completed));
-    } else {
-      setgroceryList(itemList);
-    }
+  const handleFilter = (newFilter) => {
+    // if (filter === "Active") {
+    //   setgroceryList((prevData) => prevData.filter((item) => !item.completed));
+    // } else if (filter === "Completed") {
+    //   setgroceryList((prevData) => prevData.filter((item) => item.completed));
+    // } else {
+    //   setgroceryList(itemList);
+    // }
+    console.log("Selected filter:", newFilter);
+    setFilter(newFilter);
   };
 
-  const [sortBy, setSortBy] = useState("Recent");
-  const [clearCompleted, setClearCompleted] = useState(false);
+  let filteredList = groceryList;
 
-  const sortedList = [...groceryList];
+  if (filter === "Active") {
+    filteredList = groceryList.filter((item) => !item.completed);
+  }
+
+  if (filter === "Completed") {
+    filteredList = groceryList.filter((item) => item.completed);
+  }
+
+  // const [sortBy, setSortBy] = useState("Recent");
+  // const [clearCompleted, setClearCompleted] = useState(false);
+
+  console.log("Current filter state:", filter);
+
+  const sortedList = [...filteredList];
 
   if (sortBy === "Name") {
     sortedList.sort((a, b) => a.itemName.localeCompare(b.itemName));
   }
 
-  if (clearCompleted) {
+  // if (clearCompleted) {
+  //   setgroceryList((prevData) => prevData.filter((item) => !item.completed));
+  //   setClearCompleted(false);
+  // }
+
+  const handleClearCompleted = () => {
     setgroceryList((prevData) => prevData.filter((item) => !item.completed));
-    setClearCompleted(false);
-  }
+    // setClearCompleted(false);
+  };
 
   useEffect(() => {
     localStorage.setItem("GroceryList", JSON.stringify(groceryList));
@@ -111,7 +135,8 @@ function App() {
             handleFilter={handleFilter}
             sortBy={sortBy}
             setSortBy={setSortBy}
-            setClearCompleted={setClearCompleted}
+            // setClearCompleted={setClearCompleted}
+            handleClearCompleted={handleClearCompleted}
           />
           <ItemsTiles
             groceryList={sortedList}
